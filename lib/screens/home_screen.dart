@@ -4,6 +4,7 @@ import 'package:chat_app/pages/contacts_page.dart';
 import 'package:chat_app/pages/messeges_page.dart';
 import 'package:chat_app/pages/notification_page.dart';
 import 'package:chat_app/theme.dart';
+import 'package:chat_app/widgets/glowing_action_button.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final messagetitle = Theme.of(context) // added by me
-        .brightness;
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
@@ -42,12 +41,10 @@ class HomeScreen extends StatelessWidget {
           valueListenable: title,
           builder: (BuildContext context, String value, _) {
             return Text(value,
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    color: (messagetitle == Brightness.light)
-                        ? Colors.black87
-                        : Colors.white70));
+                    color: AppColors.textLigth));
           },
         ),
         leadingWidth: 54,
@@ -132,6 +129,15 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                 isSelected: (selectedIndex == 1),
                 onTap: handleItemSelected,
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 5),
+                child: GlowingActionButton(
+                    color: AppColors.secondary,
+                    icon: CupertinoIcons.add,
+                    onPressed: () {
+                      print("Todo a new message");
+                    }),
+              ),
               _NavigationBarItem(
                 index: 2,
                 label: 'Calls',
@@ -178,7 +184,7 @@ class _NavigationBarItem extends StatelessWidget {
         onTap(index);
       },
       child: SizedBox(
-        height: 70,
+        width: 70,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
