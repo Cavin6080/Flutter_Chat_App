@@ -30,6 +30,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final messagetitle = Theme.of(context) // added by me
+        .brightness;
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
@@ -40,10 +42,12 @@ class HomeScreen extends StatelessWidget {
           valueListenable: title,
           builder: (BuildContext context, String value, _) {
             return Text(value,
-                style: const TextStyle(
+                style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    color: AppColors.textDark));
+                    color: (messagetitle == Brightness.light)
+                        ? Colors.black87
+                        : Colors.white70));
           },
         ),
         leadingWidth: 54,
@@ -100,41 +104,51 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      bottom: true,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _NavigationBarItem(
-            index: 0,
-            label: 'Message',
-            icon: CupertinoIcons.bubble_left_bubble_right_fill,
-            isSelected: (selectedIndex == 0),
-            onTap: handleItemSelected,
+    final brightness = Theme.of(context)
+        .brightness; //remeber to do in title message beside search
+    return Card(
+      color: (brightness == Brightness.light) ? Colors.transparent : null,
+      elevation: 0,
+      margin: const EdgeInsets.all(0),
+      child: SafeArea(
+        top: false,
+        bottom: true,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0, top: 16, right: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _NavigationBarItem(
+                index: 0,
+                label: 'Message',
+                icon: CupertinoIcons.bubble_left_bubble_right_fill,
+                isSelected: (selectedIndex == 0),
+                onTap: handleItemSelected,
+              ),
+              _NavigationBarItem(
+                index: 1,
+                label: 'Notifications',
+                icon: CupertinoIcons.bell_solid,
+                isSelected: (selectedIndex == 1),
+                onTap: handleItemSelected,
+              ),
+              _NavigationBarItem(
+                index: 2,
+                label: 'Calls',
+                icon: CupertinoIcons.phone_fill,
+                isSelected: (selectedIndex == 2),
+                onTap: handleItemSelected,
+              ),
+              _NavigationBarItem(
+                index: 3,
+                label: 'Contacts',
+                icon: CupertinoIcons.person_2_fill,
+                isSelected: (selectedIndex == 3),
+                onTap: handleItemSelected,
+              ),
+            ],
           ),
-          _NavigationBarItem(
-            index: 1,
-            label: 'Notifications',
-            icon: CupertinoIcons.bell_solid,
-            isSelected: (selectedIndex == 1),
-            onTap: handleItemSelected,
-          ),
-          _NavigationBarItem(
-            index: 2,
-            label: 'Calls',
-            icon: CupertinoIcons.phone_fill,
-            isSelected: (selectedIndex == 2),
-            onTap: handleItemSelected,
-          ),
-          _NavigationBarItem(
-            index: 3,
-            label: 'Contacts',
-            icon: CupertinoIcons.person_2_fill,
-            isSelected: (selectedIndex == 3),
-            onTap: handleItemSelected,
-          ),
-        ],
+        ),
       ),
     );
   }
