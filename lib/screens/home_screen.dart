@@ -43,8 +43,8 @@ class HomeScreen extends StatelessWidget {
             return Text(value,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: AppColors.textLigth));
+                    fontSize: 17,
+                    color: Colors.black87));
           },
         ),
         leadingWidth: 54,

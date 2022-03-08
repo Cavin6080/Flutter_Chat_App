@@ -1,4 +1,5 @@
 import 'package:chat_app/helpers.dart';
+import 'package:chat_app/screens/screens.dart';
 import 'package:chat_app/theme.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class MessegesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: _Stories(),
         ),
         SliverList(
@@ -45,7 +46,9 @@ class _MessageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(ChatScreen.route(messagedata));
+      },
       child: Container(
         height: 100,
         margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -100,10 +103,9 @@ class _MessageTile extends StatelessWidget {
                     const SizedBox(
                       height: 4,
                     ),
-                    const Text(
-                      //messageData.dateMessage.toUpperCase(),
-                      'A DAY AGO',
-                      style: TextStyle(
+                    Text(
+                      messagedata.dateMessage.toUpperCase(),
+                      style: const TextStyle(
                         fontSize: 11,
                         letterSpacing: -0.2,
                         fontWeight: FontWeight.w600,
