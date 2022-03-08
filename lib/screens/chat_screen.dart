@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
         .channel
         .state!
         .unreadCountStream
-        .listen((event) {});
+        .listen((_unreadCountHandler));
   }
 
   @override

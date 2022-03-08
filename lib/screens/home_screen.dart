@@ -94,7 +94,7 @@ class _BottomNavigationBar extends StatefulWidget {
   final ValueChanged<int> onItemSelected;
 
   @override
-  State<_BottomNavigationBar> createState() => _BottomNavigationBarState();
+  _BottomNavigationBarState createState() => _BottomNavigationBarState();
 }
 
 class _BottomNavigationBarState extends State<_BottomNavigationBar> {

@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import '../widgets/widgets.dart';
 
-
 class ContactsPage extends StatelessWidget {
   const ContactsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return UserListCore(
-      // pagination: const PaginationParams(
-      //   limit: 20,
-      // ),
+      pagination: const PaginationParams(
+        limit: 20,
+      ),
       filter: Filter.notEqual('id', context.currentUser!.id),
       emptyBuilder: (context) {
         return const Center(child: Text('There are no users'));

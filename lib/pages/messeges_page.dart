@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:chat_app/app.dart';
-
 import '../models/models.dart';
 import '../widgets/widgets.dart';
 
@@ -14,7 +13,7 @@ class MessegesPage extends StatefulWidget {
   const MessegesPage({Key? key}) : super(key: key);
 
   @override
-  State<MessegesPage> createState() => _MessegesPageState();
+  _MessegesPageState createState() => _MessegesPageState();
 }
 
 class _MessegesPageState extends State<MessegesPage> {
@@ -26,7 +25,7 @@ class _MessegesPageState extends State<MessegesPage> {
         channelListController: channelListController,
         filter: Filter.and([
           Filter.equal('type', 'messaging'),
-          Filter.in_('member', [
+          Filter.in_('members', [
             StreamChatCore.of(context).currentUser!.id,
           ]),
         ]),
@@ -46,21 +45,22 @@ class _MessegesPageState extends State<MessegesPage> {
                 child: CircularProgressIndicator(),
               ),
             ),
-        listBuilder: (context, channles) {
+        listBuilder: (context, channels) {
           return CustomScrollView(
             slivers: [
               const SliverToBoxAdapter(
                 child: _Stories(),
               ),
               SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return _MessageTile(
-                    channel: channles[index],
-                  );
-                },
-                childCount: channles.length,
-              )),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return _MessageTile(
+                      channel: channels[index],
+                    );
+                  },
+                  childCount: channels.length,
+                ),
+              )
             ],
           );
         });
